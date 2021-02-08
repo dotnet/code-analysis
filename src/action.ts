@@ -3,70 +3,68 @@ import { MscaAction } from './msca-toolkit/msca-toolkit';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as os from 'os';
+import { stringify } from 'querystring';
+
+function appendAnalysisLevel(analysisLevelName: string, analysisArgs: string): string {
+    let analysisLevelInput = core.getInput(analysisLevelName.toLowerCase());
+    if (action.isNullOrWhiteSpace(analysisLevelInput)) {
+        return;
+    }
+
+    let analysisLevel: string;
+    let analysisMode: string;
+    let separator = analysisLevelInput.lastIndexOf('-');
+    if (separator > 0) {
+        analysisLevel = analysisLevelInput.substring(0, separator);
+        analysisMode = analysisLevelInput.substring(separator + 1);
+    }
+    else {
+        switch (analysisLevelInput.toLowerCase()) {
+            case 'none':
+            case 'default':
+            case 'minimum':
+            case 'recommended':
+            case 'all':
+            case 'allenabledbydefault':
+            case 'alldisabledbydefault':
+                analysisMode = analysisLevelInput;
+                analysisLevel = 'latest';
+                break;
+
+            default:
+                analysisLevel = analysisLevelInput;
+                analysisMode = 'minimum';
+                break;
+        }
+    }
+
+    if (analysisLevelName == 'analysis-level') {
+        analysisArgs += `/p:AnalysisLevel=${analysisLevel} /p:AnalysisMode=${analysisMode}`;
+    }
+    else {
+        analysisArgs += `/p:AnalysisLevel${analysisLevelName}=${analysisLevel} /p:AnalysisMode${analysisLevelName}=${analysisMode}`;
+    }
+}
 
 let action = new MscaAction();
 
 let analysisArgs = ""
 
-let analysisLevel = core.getInput('analysis-level');
-if (!action.isNullOrWhiteSpace(analysisLevel)) {
-    analysisArgs += `/p:AnalysisLevel=${analysisLevel} `;
-}
+// Process core analysis-level
+analysisArgs = appendAnalysisLevel('analysis-level', analysisArgs);
 
-let style = core.getInput('style');
-if (!action.isNullOrWhiteSpace(style)) {
-    analysisArgs += `/p:AnalysisLevelStyle=${style} `;
-}
-
-let design = core.getInput('design');
-if (!action.isNullOrWhiteSpace(design)) {
-    analysisArgs += `/p:AnalysisLevelDesign=${design} `;
-}
-
-let documentation = core.getInput('documentation');
-if (!action.isNullOrWhiteSpace(documentation)) {
-    analysisArgs += `/p:AnalysisLevelDocumentation=${documentation} `;
-}
-
-let globalization = core.getInput('globalization');
-if (!action.isNullOrWhiteSpace(globalization)) {
-    analysisArgs += `/p:AnalysisLevelGlobalization=${globalization} `;
-}
-
-let interoperability = core.getInput('interoperability');
-if (!action.isNullOrWhiteSpace(interoperability)) {
-    analysisArgs += `/p:AnalysisLevelInteroperability=${interoperability} `;
-}
-
-let maintainability = core.getInput('maintainability');
-if (!action.isNullOrWhiteSpace(maintainability)) {
-    analysisArgs += `/p:AnalysisLevelMaintainability=${maintainability} `;
-}
-
-let naming = core.getInput('naming');
-if (!action.isNullOrWhiteSpace(naming)) {
-    analysisArgs += `/p:AnalysisLevelNaming=${naming} `;
-}
-
-let performance = core.getInput('performance');
-if (!action.isNullOrWhiteSpace(performance)) {
-    analysisArgs += `/p:AnalysisLevelPerformance=${performance} `;
-}
-
-let reliability = core.getInput('reliability');
-if (!action.isNullOrWhiteSpace(reliability)) {
-    analysisArgs += `/p:AnalysisLevelReliability=${reliability} `;
-}
-
-let security = core.getInput('security');
-if (!action.isNullOrWhiteSpace(security)) {
-    analysisArgs += `/p:AnalysisLevelSecurity=${security} `;
-}
-
-let usage = core.getInput('usage');
-if (!action.isNullOrWhiteSpace(usage)) {
-    analysisArgs += `/p:AnalysisLevelUsage=${usage} `;
-}
+// Process category specific analysis levels
+analysisArgs = appendAnalysisLevel('Style', analysisArgs);
+analysisArgs = appendAnalysisLevel('Design', analysisArgs);
+analysisArgs = appendAnalysisLevel('Documentation', analysisArgs);
+analysisArgs = appendAnalysisLevel('Globalization', analysisArgs);
+analysisArgs = appendAnalysisLevel('Interoperability', analysisArgs);
+analysisArgs = appendAnalysisLevel('Maintainability', analysisArgs);
+analysisArgs = appendAnalysisLevel('Naming', analysisArgs);
+analysisArgs = appendAnalysisLevel('Performance', analysisArgs);
+analysisArgs = appendAnalysisLevel('Reliability', analysisArgs);
+analysisArgs = appendAnalysisLevel('Security', analysisArgs);
+analysisArgs = appendAnalysisLevel('Usage', analysisArgs);
 
 let projects = core.getInput('projects');
 if (action.isNullOrWhiteSpace(projects)) {
