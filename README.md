@@ -34,12 +34,12 @@ steps:
   id: code-analysis
 ```
 
-**Note:** The code analysis action is built with dotnet v5.0.2. A version greater than or equal to v5.0.2 of dotnet must be installed on the runner in order to run this action. To ensure a compatible version of dotnet is installed on a self-hosted runner, please configure the [actions/setup-dotnet](https://github.com/actions/setup-dotnet) action.
+**Note:** The code analysis action is built with dotnet v5.0.x. A version greater than or equal to v5.0.x of dotnet must be installed on the runner in order to run this action. To ensure a compatible version of dotnet is installed on a self-hosted runner, please configure the [actions/setup-dotnet](https://github.com/actions/setup-dotnet) action.
 
 ```
 - uses: actions/setup-dotnet@v1
   with:
-    dotnet-version: '5.0.2'
+    dotnet-version: '5.0.x'
 ```
 
 # More Information

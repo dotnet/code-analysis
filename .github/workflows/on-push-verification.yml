@@ -18,10 +18,10 @@ jobs:
     - uses: actions/checkout@v2
 
     # Ensure a compatible version of dotnet is installed.
-    # A version greater than or equal to v5.0.2 of dotnet must be installed on the agent in order to run this action.
+    # A version greater than or equal to v5.0.x of dotnet must be installed on the agent in order to run this action.
     - uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '5.0.2'
+        dotnet-version: '5.0.x'
 
       # Run .NET Code Analysis
     - name: Run .NET Code Analysis
