@@ -28,4 +28,4 @@ jobs:
       uses: ./
       id: code-analysis
       with:
-        projects: .\samples\ClassLibrary1.sln
+        projects: .\sample\ClassLibrary1.sln
