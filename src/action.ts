@@ -5,7 +5,7 @@ import * as fs from 'fs';
 import * as os from 'os';
 import { stringify } from 'querystring';
 
-function appendAnalysisLevel(analysisLevelName: string, analysisArgs: string): string {
+function getAnalysisLevelArgumentFromInput(analysisLevelName: string): string {
     let analysisLevelInput = core.getInput(analysisLevelName.toLowerCase());
     if (action.isNullOrWhiteSpace(analysisLevelInput)) {
         return;
@@ -38,33 +38,34 @@ function appendAnalysisLevel(analysisLevelName: string, analysisArgs: string): s
         }
     }
 
+    let newArg: string;
     if (analysisLevelName == 'analysis-level') {
-        analysisArgs += `/p:AnalysisLevel=${analysisLevel} /p:AnalysisMode=${analysisMode}`;
+        newArg = `/p:AnalysisLevel=${analysisLevel} /p:AnalysisMode=${analysisMode}`;
     }
     else {
-        analysisArgs += `/p:AnalysisLevel${analysisLevelName}=${analysisLevel} /p:AnalysisMode${analysisLevelName}=${analysisMode}`;
+        newArg = `/p:AnalysisLevel${analysisLevelName}=${analysisLevel} /p:AnalysisMode${analysisLevelName}=${analysisMode}`;
     }
+
+    return analysisArgs + newArg;
 }
 
 let action = new MscaAction();
 
-let analysisArgs = ""
-
 // Process core analysis-level
-analysisArgs = appendAnalysisLevel('analysis-level', analysisArgs);
+let analysisArgs = getAnalysisLevelArgumentFromInput('analysis-level');
 
 // Process category specific analysis levels
-analysisArgs = appendAnalysisLevel('Style', analysisArgs);
-analysisArgs = appendAnalysisLevel('Design', analysisArgs);
-analysisArgs = appendAnalysisLevel('Documentation', analysisArgs);
-analysisArgs = appendAnalysisLevel('Globalization', analysisArgs);
-analysisArgs = appendAnalysisLevel('Interoperability', analysisArgs);
-analysisArgs = appendAnalysisLevel('Maintainability', analysisArgs);
-analysisArgs = appendAnalysisLevel('Naming', analysisArgs);
-analysisArgs = appendAnalysisLevel('Performance', analysisArgs);
-analysisArgs = appendAnalysisLevel('Reliability', analysisArgs);
-analysisArgs = appendAnalysisLevel('Security', analysisArgs);
-analysisArgs = appendAnalysisLevel('Usage', analysisArgs);
+analysisArgs += getAnalysisLevelArgumentFromInput('Style');
+analysisArgs += getAnalysisLevelArgumentFromInput('Design');
+analysisArgs += getAnalysisLevelArgumentFromInput('Documentation');
+analysisArgs += getAnalysisLevelArgumentFromInput('Globalization');
+analysisArgs += getAnalysisLevelArgumentFromInput('Interoperability');
+analysisArgs += getAnalysisLevelArgumentFromInput('Maintainability');
+analysisArgs += getAnalysisLevelArgumentFromInput('Naming');
+analysisArgs += getAnalysisLevelArgumentFromInput('Performance');
+analysisArgs += getAnalysisLevelArgumentFromInput('Reliability');
+analysisArgs += getAnalysisLevelArgumentFromInput('Security');
+analysisArgs += getAnalysisLevelArgumentFromInput('Usage');
 
 let projects = core.getInput('projects');
 if (action.isNullOrWhiteSpace(projects)) {
