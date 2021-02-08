@@ -1,5 +1,5 @@
 name: 'code-analysis'
-description: 'Run .NET code quality and code style analyzers shipping with .NET SDK'
+description: 'Run .NET code quality analysis and code style analysis shipping with the .NET SDK'
 author: 'GitHub'
 inputs:
   projects:
