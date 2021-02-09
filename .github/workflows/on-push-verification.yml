@@ -26,6 +26,10 @@ jobs:
     #   with:
     #     dotnet-version: '3.1.x'
 
+    # Run NuGet restore
+    - name: Run NuGet restore
+      run: dotnet restore .\sample\ClassLibrary1.sln
+
     # Run .NET Code Analysis
     - name: Run .NET Code Analysis
       uses: ./

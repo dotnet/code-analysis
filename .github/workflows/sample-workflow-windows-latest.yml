@@ -29,7 +29,14 @@ jobs:
     #   with:
     #     dotnet-version: '3.1.x'
 
-    # Run .NET Code Analysis
+    # Run NuGet restore
+    - name: Run NuGet restore
+      run: dotnet restore <%path_to_project_or_solution%>
+
+    # Run open source static analysis tools
     - name: Run .NET Code Analysis
       uses: dotnet/code-analysis@v1
       id: code-analysis
+      with:
+        projects: <%path_to_project_or_solution%>
+        analysis-level: <%analysis_level%>
