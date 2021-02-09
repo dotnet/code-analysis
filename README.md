@@ -29,17 +29,24 @@ Run [.NET code quality and code style analysis](https://docs.microsoft.com/dotne
 ```yaml
 steps:
 - uses: actions/checkout@v2
+
+- name: Run NuGet restore
+  run: dotnet restore <%path_to_project_or_solution%>
+
 - name: Run .NET Code Analysis
   uses: dotnet/code-analysis@v1
   id: code-analysis
+  with:
+    projects: <%path_to_project_or_solution%>
+    analysis-level: <%analysis_level%>
 ```
 
-**Note:** The code analysis action is built with dotnet v5.0.x. A version greater than or equal to v5.0.x of dotnet must be installed on the runner in order to run this action. To ensure a compatible version of dotnet is installed on a self-hosted runner, please configure the [actions/setup-dotnet](https://github.com/actions/setup-dotnet) action.
+**Note:** The [Microsoft Code Analysis CLI](https://aka.ms/mscadocs) is built with dotnet v3.1.201. A version greater than or equal to v3.1.201 of dotnet must be installed on the runner in order to run this action. GitHub hosted runners already have a compatible version of dotnet installed. To ensure a compatible version of dotnet is installed on a self-hosted runner, please configure the [actions/setup-dotnet](https://github.com/actions/setup-dotnet) action.
 
-```
+```yaml
 - uses: actions/setup-dotnet@v1
   with:
-    dotnet-version: '5.0.x'
+    dotnet-version: '3.1.x'
 ```
 
 # More Information
