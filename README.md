@@ -31,13 +31,13 @@ steps:
 - uses: actions/checkout@v2
 
 - name: Run NuGet restore
-  run: dotnet restore <%path_to_project_or_solution%>
+  run: dotnet restore <%semi_colon_separated_paths_to_projects_or_solutions%>
 
 - name: Run .NET Code Analysis
   uses: dotnet/code-analysis@v1
   id: code-analysis
   with:
-    projects: <%path_to_project_or_solution%>
+    projects: <%semi_colon_separated_paths_to_projects_or_solutions%>
     analysis-level: <%analysis_level%>
 ```
 
