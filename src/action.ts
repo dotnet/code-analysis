@@ -40,10 +40,10 @@ function getAnalysisLevelArgumentFromInput(analysisLevelName: string): string {
 
     let newArg: string;
     if (analysisLevelName == 'analysis-level') {
-        newArg = `/p:AnalysisLevel=${analysisLevel} /p:AnalysisMode=${analysisMode}`;
+        newArg = ` /p:AnalysisLevel=${analysisLevel} /p:AnalysisMode=${analysisMode}`;
     }
     else {
-        newArg = `/p:AnalysisLevel${analysisLevelName}=${analysisLevel} /p:AnalysisMode${analysisLevelName}=${analysisMode}`;
+        newArg = ` /p:AnalysisLevel${analysisLevelName}=${analysisLevel} /p:AnalysisMode${analysisLevelName}=${analysisMode}`;
     }
 
     return newArg;
