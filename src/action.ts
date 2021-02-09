@@ -85,13 +85,13 @@ projects.split(";").forEach(function (project) {
 });
 
 var configContent = {
-    "fileVersion": "1.7.0.3",
+    "fileVersion": "1.9.0.1",
     "tools": [
      {
-      "fileVersion": "1.7.0.3",
+      "fileVersion": "1.9.0.1",
       "tool": {
        "name": "RoslynAnalyzers",
-       "version": "1.7.0.3"
+       "version": "1.9.0.1"
       },
       "arguments": {
        "CopyLogsOnly": false,
