@@ -8,7 +8,7 @@ import { stringify } from 'querystring';
 function getAnalysisLevelArgumentFromInput(analysisLevelName: string): string {
     let analysisLevelInput = core.getInput(analysisLevelName.toLowerCase());
     if (action.isNullOrWhiteSpace(analysisLevelInput)) {
-        return;
+        return '';
     }
 
     let analysisLevel: string;
@@ -46,7 +46,7 @@ function getAnalysisLevelArgumentFromInput(analysisLevelName: string): string {
         newArg = `/p:AnalysisLevel${analysisLevelName}=${analysisLevel} /p:AnalysisMode${analysisLevelName}=${analysisMode}`;
     }
 
-    return analysisArgs + newArg;
+    return newArg;
 }
 
 let action = new MscaAction();
