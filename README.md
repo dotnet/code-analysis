@@ -30,9 +30,11 @@ Run [.NET code quality and code style analysis](https://docs.microsoft.com/dotne
 steps:
 - uses: actions/checkout@v2
 
+# Run NuGet restore for each project/solution to analyze
 - name: Run NuGet restore
-  run: dotnet restore <%semi_colon_separated_paths_to_projects_or_solutions%>
+  run: dotnet restore <%path_to_project_or_solution%>
 
+# Run code analysis for all projects/solutions
 - name: Run .NET Code Analysis
   uses: dotnet/code-analysis@v1
   id: code-analysis
