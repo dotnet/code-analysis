@@ -67,4 +67,4 @@ The scripts and documentation in this project are released under the [MIT Licens
 
 Contributions are welcome! See the [Contributor's Guide](CONTRIBUTING.md).
 
-This [project](CODE-OF-CONDUCT.md) has adopted the [.NET Foundation Code of Conduct](https://dotnetfoundation.org/code-of-conduct).
+This project has adopted the [.NET Foundation Code of Conduct](https://dotnetfoundation.org/code-of-conduct).
