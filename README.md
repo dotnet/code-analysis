@@ -14,12 +14,12 @@ This action runs the [.NET code quality ("CAxxxx") and code style analyzers("IDE
 |Name|Description
 |--|--|
 `projects`|One or more `;` separated paths to the project(s) or solution(s) to analyze.
+`warn-as-error`|Boolean value `true` or `false` indicating if analysis warnings should be treated as errors and fail the build.
 
 ### Optional Inputs
 
 |Name|Applicable To|Default|Description
 |--|--|--|
-`warn-as-error`|[All 'CAxxxx' and 'IDExxxx' rules](https://docs.microsoft.com/dotnet/fundamentals/code-analysis/categories)|`true`|Flag indicating if analysis warnings should be reported as errors.
 `all-categories`|[All 'CAxxxx' and 'IDExxxx' rules](https://docs.microsoft.com/dotnet/fundamentals/code-analysis/categories)|`latest-minimum`|Valid `AnalysisLevel` or `AnalysisMode` values or `AnalysisLevel-AnalysisMode` combinations from tables below.
 `style`|['IDExxxx' code-style rules](https://docs.microsoft.com/dotnet/fundamentals/code-analysis/style-rules)|Value for `all-categories`|Valid `AnalysisLevel` or `AnalysisMode` values or `AnalysisLevel-AnalysisMode` combinations from tables below.
 `design`|['CAxxxx' design rules](https://docs.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/design-warnings)|Value for `all-categories`|Valid `AnalysisLevel` or `AnalysisMode` values or `AnalysisLevel-AnalysisMode` combinations from tables below.
@@ -58,7 +58,7 @@ The following table shows the available [AnalysisMode](https://docs.microsoft.co
 
 ### Input Examples
 
-1. Enable all `CAxxxx` and `IDExxxx` rules for a single solution at repo root.
+1. Enable all `CAxxxx` and `IDExxxx` rules for a single solution at repo root. Warnings are treated as errors.
 
     ```yaml
     - name: Run .NET Code Analysis
@@ -66,10 +66,11 @@ The following table shows the available [AnalysisMode](https://docs.microsoft.co
       id: code-analysis
       with:
         projects: MySolution.sln
+        warn-as-error: true
         all-categories: all
     ```
 
-2. Enable all 5.0 release `CAxxxx` security and performance rules, but only the recommended set for other rule categories for `MyProject1.csproj` and `MyProject2.csproj`. Warnings are not reported as errors.
+2. Enable all 5.0 release `CAxxxx` security and performance rules, but only the recommended set for other rule categories for `MyProject1.csproj` and `MyProject2.csproj`. Warnings are not treated as errors.
 
     ```yaml
     - name: Run .NET Code Analysis
@@ -83,7 +84,7 @@ The following table shows the available [AnalysisMode](https://docs.microsoft.co
         all-categories: 5.0-recommended
     ```
 
-3. Enable highly-recommended `IDExxxx` code-style rules, and disable all the remaining rules for a single project.
+3. Enable highly-recommended `IDExxxx` code-style rules, and disable all the remaining rules for a single project. Warnings are treated as errors.
 
     ```yaml
     - name: Run .NET Code Analysis
@@ -91,6 +92,7 @@ The following table shows the available [AnalysisMode](https://docs.microsoft.co
       id: code-analysis
       with:
         projects: src\MyProject1.csproj
+        warn-as-error: true
         style: minimum
         all-categories: none
     ```
@@ -115,12 +117,13 @@ steps:
 - name: Run NuGet restore
   run: dotnet restore <%path_to_project_or_solution%>
 
-# Run code analysis for all projects/solutions
+# Run code analysis for all projects/solutions, with warnings treated as errors
 - name: Run .NET Code Analysis
   uses: dotnet/code-analysis@v1
   id: code-analysis
   with:
     projects: <%semi_colon_separated_paths_to_projects_or_solutions%>
+    warn-as-error: true
 ```
 
 **Note:** The [Microsoft Code Analysis CLI](https://aka.ms/mscadocs) is built with dotnet v3.1.201. A version greater than or equal to v3.1.201 of dotnet must be installed on the runner in order to run this action. GitHub hosted runners already have a compatible version of dotnet installed. To ensure a compatible version of dotnet is installed on a self-hosted runner, please configure the [actions/setup-dotnet](https://github.com/actions/setup-dotnet) action.

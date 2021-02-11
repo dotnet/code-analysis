@@ -36,5 +36,5 @@ jobs:
       id: code-analysis
       with:
         projects: .\sample\ClassLibrary1.sln
-        all-categories: all
         warn-as-error: false
+        all-categories: all
