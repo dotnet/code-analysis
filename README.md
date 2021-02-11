@@ -18,6 +18,8 @@ This action runs the [.NET code quality ("CAxxxx") and code style analyzers("IDE
 
 ### Optional Inputs
 
+Inputs to customize the buckets of analyzers that are executed, either based on category or for all cateogries. By default, we execute all the latest, minimum recommended analyzers for all categories.
+
 |Name|Applicable To|Default|Description
 |----|----|----|----|
 `all-categories`|[All 'CAxxxx' and 'IDExxxx' rules](https://docs.microsoft.com/dotnet/fundamentals/code-analysis/categories)|`latest-minimum`|Valid `AnalysisLevel` or `AnalysisMode` values or `AnalysisLevel-AnalysisMode` combinations from tables below.
