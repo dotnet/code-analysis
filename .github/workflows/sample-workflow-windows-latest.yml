@@ -39,4 +39,5 @@ jobs:
       id: code-analysis
       with:
         projects: <%semi_colon_separated_paths_to_projects_or_solutions%>
-        analysis-level: <%analysis_level%>
+        warn-as-error: <%true_or_false%>
+        all-categories: <%analysis_level%>

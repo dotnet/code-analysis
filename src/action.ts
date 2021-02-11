@@ -39,7 +39,7 @@ function getAnalysisLevelArgumentFromInput(analysisLevelName: string): string {
     }
 
     let newArg: string;
-    if (analysisLevelName == 'analysis-level') {
+    if (analysisLevelName == 'all-categories') {
         newArg = `/p:AnalysisLevel=${analysisLevel} /p:AnalysisMode=${analysisMode} `;
     }
     else {
@@ -52,7 +52,7 @@ function getAnalysisLevelArgumentFromInput(analysisLevelName: string): string {
 let action = new MscaAction();
 
 // Process core analysis-level
-let analysisArgs = getAnalysisLevelArgumentFromInput('analysis-level');
+let analysisArgs = getAnalysisLevelArgumentFromInput('all-categories');
 
 // Process category specific analysis levels
 analysisArgs += getAnalysisLevelArgumentFromInput('Style');
@@ -66,6 +66,12 @@ analysisArgs += getAnalysisLevelArgumentFromInput('Performance');
 analysisArgs += getAnalysisLevelArgumentFromInput('Reliability');
 analysisArgs += getAnalysisLevelArgumentFromInput('Security');
 analysisArgs += getAnalysisLevelArgumentFromInput('Usage');
+
+let warnAsError = core.getInput('warn-as-error');
+if (action.isNullOrWhiteSpace(warnAsError) || warnAsError.toLowerCase() != 'false')
+{
+    analysisArgs += `/warnaserror `;
+}
 
 let projects = core.getInput('projects');
 if (action.isNullOrWhiteSpace(projects)) {
