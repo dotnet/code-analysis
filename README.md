@@ -12,14 +12,14 @@ This action runs the [.NET code quality ("CAxxxx") and code style analyzers("IDE
 ### Mandatory Inputs
 
 |Name|Description
-|--|--|
+|----|----|
 `projects`|One or more `;` separated paths to the project(s) or solution(s) to analyze.
 `warn-as-error`|Boolean value `true` or `false` indicating if analysis warnings should be treated as errors and fail the build.
 
 ### Optional Inputs
 
 |Name|Applicable To|Default|Description
-|--|--|--|
+|----|----|----|----|
 `all-categories`|[All 'CAxxxx' and 'IDExxxx' rules](https://docs.microsoft.com/dotnet/fundamentals/code-analysis/categories)|`latest-minimum`|Valid `AnalysisLevel` or `AnalysisMode` values or `AnalysisLevel-AnalysisMode` combinations from tables below.
 `style`|['IDExxxx' code-style rules](https://docs.microsoft.com/dotnet/fundamentals/code-analysis/style-rules)|Value for `all-categories`|Valid `AnalysisLevel` or `AnalysisMode` values or `AnalysisLevel-AnalysisMode` combinations from tables below.
 `design`|['CAxxxx' design rules](https://docs.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/design-warnings)|Value for `all-categories`|Valid `AnalysisLevel` or `AnalysisMode` values or `AnalysisLevel-AnalysisMode` combinations from tables below.
