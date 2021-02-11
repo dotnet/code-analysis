@@ -36,4 +36,4 @@ jobs:
       id: code-analysis
       with:
         projects: .\sample\ClassLibrary1.sln
-        analysis-level: latest-all
+        all-categories: all
