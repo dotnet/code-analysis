@@ -2,12 +2,21 @@ name: 'code-analysis'
 description: 'Run .NET code quality analysis and code style analysis shipping with the .NET SDK'
 author: 'GitHub'
 inputs:
+  build-breaking:
+    description: 'Boolean value indicating if code analysis violations should break the build'
+    required: true
+  solution:
+    description: 'Solution to analyze'
+    required: false
+  solutions:
+    description: 'Semi-colon separated list of solutions to analyze'
+    required: false
+  project:
+    description: 'Project to analyze'
+    required: false
   projects:
-    description: 'Semi-colon separated list of projects or solutions to analyze'
-    required: true
-  warn-as-error:
-    description: 'Boolean value indicating if analysis warnings should be treated as errors and fail the build'
-    required: true
+    description: 'Semi-colon separated list of projects to analyze'
+    required: false
   all-categories:  # AnalysisLevel: https://docs.microsoft.com/dotnet/core/project-sdk/msbuild-props#analysislevel
     description: 'Default analysis level and analysis mode for all rules'
     required: false

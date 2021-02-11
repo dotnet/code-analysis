@@ -49,6 +49,19 @@ function getAnalysisLevelArgumentFromInput(analysisLevelName: string): string {
     return newArg;
 }
 
+function appendToProjectsOrSolutions(inputVariableName: string, projectsOrSolutions: string): string {
+    let input = core.getInput(inputVariableName);
+    if (!action.isNullOrWhiteSpace(input)) {
+        if (!action.isNullOrWhiteSpace(projectsOrSolutions)) {
+            projectsOrSolutions += ';';
+        }
+
+        projectsOrSolutions += input;
+    }
+
+    return projectsOrSolutions;
+}
+
 let action = new MscaAction();
 
 // Process core analysis-level
@@ -67,28 +80,34 @@ analysisArgs += getAnalysisLevelArgumentFromInput('Reliability');
 analysisArgs += getAnalysisLevelArgumentFromInput('Security');
 analysisArgs += getAnalysisLevelArgumentFromInput('Usage');
 
-let warnAsError = core.getInput('warn-as-error');
+let warnAsError = core.getInput('build-breaking');
 if (action.isNullOrWhiteSpace(warnAsError) || warnAsError.toLowerCase() != 'false')
 {
     analysisArgs += `/warnaserror `;
 }
 
-let projects = core.getInput('projects');
-if (action.isNullOrWhiteSpace(projects)) {
-    core.setFailed("'projects' must be non-empty");
-}
+let projectsOrSolutions = '';
+projectsOrSolutions = appendToProjectsOrSolutions('solution', projectsOrSolutions);
+projectsOrSolutions = appendToProjectsOrSolutions('solutions', projectsOrSolutions);
+projectsOrSolutions = appendToProjectsOrSolutions('project', projectsOrSolutions);
+projectsOrSolutions = appendToProjectsOrSolutions('projects', projectsOrSolutions);
 
 var buildCommandLines:string = "";
 var first = true;
-projects.split(";").forEach(function (project) {
-    if (!first)
-    {
-        buildCommandLines += " ; ";
-        first = false;
-    }
+if (action.isNullOrWhiteSpace(projectsOrSolutions)) {
+    buildCommandLines += `msbuild.exe ${analysisArgs}`;
+}
+else {
+    projectsOrSolutions.split(";").forEach(function (project) {
+        if (!first)
+        {
+            buildCommandLines += " ; ";
+            first = false;
+        }
 
-    buildCommandLines +=`msbuild.exe ${analysisArgs}${project}`;
-});
+        buildCommandLines += `msbuild.exe ${analysisArgs}${project}`;
+    });
+}
 
 var configContent = {
     "fileVersion": "1.9.0.1",

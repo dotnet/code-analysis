@@ -21,7 +21,7 @@ jobs:
     - uses: actions/checkout@v2
 
     # Ensure compatible versions of dotnet are installed.
-    # The [Microsoft Security Code Analysis CLI](https://aka.ms/mscadocs) is built with dotnet v3.1.201.
+    # The [Microsoft Code Analysis CLI](https://aka.ms/mscadocs) is built with dotnet v3.1.201.
     # A version greater than or equal to v3.1.201 of dotnet must be installed on the agent in order to run this action.
     # Remote agents already have a compatible version of dotnet installed and this step may be skipped.
     # For local agents, ensure dotnet version 3.1.201 or later is installed by including this action:
@@ -29,15 +29,13 @@ jobs:
     #   with:
     #     dotnet-version: '3.1.x'
 
-    # Run NuGet restore for each project/solution to analyze
+    # Run NuGet restore for the solution at repo root
     - name: Run NuGet restore
-      run: dotnet restore <%path_to_project_or_solution%>
+      run: dotnet restore
 
-    # Run code analysis for all projects/solutions
+    # Run code analysis for the solution at repo root
     - name: Run .NET Code Analysis
       uses: dotnet/code-analysis@v1
       id: code-analysis
       with:
-        projects: <%semi_colon_separated_paths_to_projects_or_solutions%>
-        warn-as-error: <%true_or_false%>
-        all-categories: <%analysis_level%>
+        build-breaking: true
