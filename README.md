@@ -13,12 +13,24 @@ This action runs the [.NET code quality ("CAxxxx") and code style analyzers("IDE
 
 |Name|Description
 |----|----|
-`projects`|One or more `;` separated paths to the project(s) or solution(s) to analyze.
-`warn-as-error`|Boolean value `true` or `false` indicating if analysis warnings should be treated as errors and fail the build.
+`build-breaking`|Boolean value `true` or `false` indicating if code analysis violations should break the build.
 
 ### Optional Inputs
 
-Inputs to customize the buckets of analyzers that are executed, either based on category or for all cateogries. By default, we execute all the latest, minimum recommended analyzers for all categories.
+#### Analysis Target(s)
+
+Inputs to select the set of projects and/or solutions to analyze. By default, the solution at the root of the repo would be analyzed.
+
+|Name|Description
+|----|----|
+`solution`|Path to the solution to analyze.
+`solutions`|One or more `;` separated paths to the solutions to analyze.
+`project`|Path to the project to analyze.
+`projects`|One or more `;` separated paths to the projects to analyze.
+
+#### Analysis Rules
+
+Inputs to customize the buckets of analyzers that are executed, either based on category or for all categories. By default, we execute all the latest, minimum recommended analyzers for all categories.
 
 |Name|Applicable To|Default|Description
 |----|----|----|----|
@@ -60,19 +72,19 @@ The following table shows the available [AnalysisMode](https://docs.microsoft.co
 
 ### Input Examples
 
-1. Enable all `CAxxxx` and `IDExxxx` rules for a single solution at repo root. Warnings are treated as errors.
+1. Enable all `CAxxxx` and `IDExxxx` rules for a single solution at repo root, such that code analysis violations break the build.
 
     ```yaml
     - name: Run .NET Code Analysis
       uses: dotnet/code-analysis@v1
       id: code-analysis
       with:
-        projects: MySolution.sln
-        warn-as-error: true
+        solution: MySolution.sln
+        build-breaking: true
         all-categories: all
     ```
 
-2. Enable all 5.0 release `CAxxxx` security and performance rules, but only the recommended set for other rule categories for `MyProject1.csproj` and `MyProject2.csproj`. Warnings are not treated as errors.
+2. Enable all 5.0 release `CAxxxx` security and performance rules, but only the recommended set for other rule categories for `MyProject1.csproj` and `MyProject2.csproj`, such that code analysis violations do not break the build.
 
     ```yaml
     - name: Run .NET Code Analysis
@@ -80,21 +92,21 @@ The following table shows the available [AnalysisMode](https://docs.microsoft.co
       id: code-analysis
       with:
         projects: src\MyProject1.csproj;src\MyProject2.csproj
-        warn-as-error: false
+        build-breaking: false
         security: 5.0-all
         performance: 5.0-all
         all-categories: 5.0-recommended
     ```
 
-3. Enable highly-recommended `IDExxxx` code-style rules, and disable all the remaining rules for a single project. Warnings are treated as errors.
+3. Enable highly-recommended `IDExxxx` code-style rules, and disable all the remaining rules for a single project, such that code analysis violations break the build.
 
     ```yaml
     - name: Run .NET Code Analysis
       uses: dotnet/code-analysis@v1
       id: code-analysis
       with:
-        projects: src\MyProject1.csproj
-        warn-as-error: true
+        project: src\MyProject1.csproj
+        build-breaking: true
         style: minimum
         all-categories: none
     ```
@@ -119,13 +131,12 @@ steps:
 - name: Run NuGet restore
   run: dotnet restore <%path_to_project_or_solution%>
 
-# Run code analysis for all projects/solutions, with warnings treated as errors
+# Run code analysis for all projects/solutions, such that code analysis violations break the build.
 - name: Run .NET Code Analysis
   uses: dotnet/code-analysis@v1
   id: code-analysis
   with:
-    projects: <%semi_colon_separated_paths_to_projects_or_solutions%>
-    warn-as-error: true
+    build-breaking: true
 ```
 
 **Note:** The [Microsoft Code Analysis CLI](https://aka.ms/mscadocs) is built with dotnet v3.1.201. A version greater than or equal to v3.1.201 of dotnet must be installed on the runner in order to run this action. GitHub hosted runners already have a compatible version of dotnet installed. To ensure a compatible version of dotnet is installed on a self-hosted runner, please configure the [actions/setup-dotnet](https://github.com/actions/setup-dotnet) action.
