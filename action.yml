@@ -6,7 +6,7 @@ inputs:
     description: 'Semi-colon separated list of projects or solutions to analyze'
     required: true
   warn-as-error:
-    description: 'Semi-colon separated list of projects or solutions to analyze'
+    description: 'Flag indicating if analysis warnings should be treated as errors and fail the build'
     required: false
     default: 'true'
   all-categories:  # AnalysisLevel: https://docs.microsoft.com/dotnet/core/project-sdk/msbuild-props#analysislevel

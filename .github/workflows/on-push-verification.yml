@@ -37,3 +37,4 @@ jobs:
       with:
         projects: .\sample\ClassLibrary1.sln
         all-categories: all
+        warn-as-error: false
