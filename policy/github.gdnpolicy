@@ -13,7 +13,7 @@
   },
   "defaults": {
     "severity": {
-      "name": "Warning"
+      "name": "Error"
     }
   },
   "severities": [
