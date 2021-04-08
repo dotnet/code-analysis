@@ -170,7 +170,7 @@ args.push('--no-policy');
 args.push('--logger-level');
 args.push('Warning');
 
-core.info("------------------------------------------------------------------------------";
+core.info("------------------------------------------------------------------------------");
 core.info("Installing and running analyzers...");
 core.info("Warnings and errors will be displayed once the analysis completes.");
 
