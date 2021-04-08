@@ -38,4 +38,4 @@ jobs:
       uses: dotnet/code-analysis@main
       id: code-analysis
       with:
-        build-breaking: true
+        build-breaking: false
