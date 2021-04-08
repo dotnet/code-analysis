@@ -131,7 +131,7 @@ var configContent = {
        "FxCopAnalyzersRootDirectory": "",
        "RulesetPath": "",
        "SdlRulesetVersion": "",
-       "LoggerLevel": "Standard"
+       "LoggerLevel": "Warning"
       },
       "outputExtension": "sarif",
       "successfulExitCodes": [
@@ -170,5 +170,12 @@ core.debug(`policyFilePath = ${policyFilePath}`);
 
 args.push('--policy-file-path');
 args.push(policyFilePath);
+
+// Set logger level to only display warnings and errors
+args.push('--logger-level');
+args.push('Warning');
+
+core.info("Installing and running analyzers...");
+core.info("Warnings and errors will be displayed once the analysis completes.");
 
 action.run(args);
