@@ -131,7 +131,8 @@ var configContent = {
        "FxCopAnalyzersRootDirectory": "",
        "RulesetPath": "",
        "SdlRulesetVersion": "",
-       "LoggerLevel": "Warning"
+       "LoggerLevel": "Warning",
+       "ForceSuccess": true // Pass force success flag so MSBuild exit code 1 on analyzer errors does not lead to non-graceful failure.
       },
       "outputExtension": "sarif",
       "successfulExitCodes": [
@@ -169,9 +170,6 @@ args.push('--no-policy');
 // Set logger level to only display warnings and errors
 args.push('--logger-level');
 args.push('Warning');
-
-// Pass force success flag so MSBuild exit code 1 on analyzer errors does not lead to non-graceful failure.
-args.push('--force-success');
 
 core.info("------------------------------------------------------------------------------");
 core.info("Installing and running analyzers...");
