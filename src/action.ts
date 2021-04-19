@@ -110,13 +110,13 @@ else {
 }
 
 var configContent = {
-    "fileVersion": "1.9.0.1",
+    "fileVersion": "1.11.0",
     "tools": [
      {
-      "fileVersion": "1.9.0.1",
+      "fileVersion": "1.11.0",
       "tool": {
        "name": "RoslynAnalyzers",
-       "version": "1.9.0.1"
+       "version": "1.11.0"
       },
       "arguments": {
        "CopyLogsOnly": false,
