@@ -170,6 +170,9 @@ args.push('--no-policy');
 args.push('--logger-level');
 args.push('Warning');
 
+// Pass force success flag so MSBuild exit code 1 on analyzer errors does not lead to non-graceful failure.
+args.push('--force-success');
+
 core.info("------------------------------------------------------------------------------");
 core.info("Installing and running analyzers...");
 core.info("Warnings and errors will be displayed once the analysis completes.");
