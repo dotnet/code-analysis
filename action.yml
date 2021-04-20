@@ -67,7 +67,7 @@ inputs:
     default: ''
 outputs:
   sarifFile:
-    description: A file path to a SARIF file with analysis results.
+    description: A file path to a '.sarif' file with analysis results.
 runs:
   using: 'node12'
   main: 'lib/action.js'
