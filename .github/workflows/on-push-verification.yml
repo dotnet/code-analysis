@@ -36,5 +36,5 @@ jobs:
       id: code-analysis
       with:
         project: .\sample\ClassLibrary1.sln
-        build-breaking: false
+        build-breaking: true
         all-categories: all
