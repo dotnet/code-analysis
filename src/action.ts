@@ -80,9 +80,11 @@ analysisArgs += getAnalysisLevelArgumentFromInput('Reliability');
 analysisArgs += getAnalysisLevelArgumentFromInput('Security');
 analysisArgs += getAnalysisLevelArgumentFromInput('Usage');
 
-let warnAsError = core.getInput('build-breaking');
-if (action.isNullOrWhiteSpace(warnAsError) || warnAsError.toLowerCase() != 'false')
+let buldBreakingArg = core.getInput('build-breaking');
+let warnAsError = false;
+if (action.isNullOrWhiteSpace(buldBreakingArg) || buldBreakingArg.toLowerCase() != 'false')
 {
+    warnAsError = true;
     analysisArgs += `/warnaserror `;
 }
 
