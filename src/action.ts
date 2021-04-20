@@ -131,7 +131,7 @@ var configContent = {
        "FxCopAnalyzersRootDirectory": "",
        "RulesetPath": "",
        "SdlRulesetVersion": "",
-       "LoggerLevel": "Warning",
+       "LoggerLevel": "Standard",
        "ForceSuccess": true // Pass force success flag so MSBuild exit code 1 on analyzer errors does not lead to non-graceful failure.
       },
       "outputExtension": "sarif",
