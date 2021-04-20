@@ -38,3 +38,10 @@ jobs:
         project: .\sample\ClassLibrary1.sln
         build-breaking: false
         all-categories: all
+
+    # Upload the analysis results file
+    - name: Upload analysis results
+      uses: actions/upload-artifact@v2
+      with:
+        name: analysis_results.sarif
+        path: ${{ steps.code-analysis.outputs.sarifFile }}
