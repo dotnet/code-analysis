@@ -80,9 +80,11 @@ analysisArgs += getAnalysisLevelArgumentFromInput('Reliability');
 analysisArgs += getAnalysisLevelArgumentFromInput('Security');
 analysisArgs += getAnalysisLevelArgumentFromInput('Usage');
 
-let warnAsError = core.getInput('build-breaking');
-if (action.isNullOrWhiteSpace(warnAsError) || warnAsError.toLowerCase() != 'false')
+let buldBreakingArg = core.getInput('build-breaking');
+let warnAsError = false;
+if (action.isNullOrWhiteSpace(buldBreakingArg) || buldBreakingArg.toLowerCase() != 'false')
 {
+    warnAsError = true;
     analysisArgs += `/warnaserror `;
 }
 
@@ -110,13 +112,13 @@ else {
 }
 
 var configContent = {
-    "fileVersion": "1.9.0.1",
+    "fileVersion": "1.11.0",
     "tools": [
      {
-      "fileVersion": "1.9.0.1",
+      "fileVersion": "1.11.0",
       "tool": {
        "name": "RoslynAnalyzers",
-       "version": "1.9.0.1"
+       "version": "1.11.0"
       },
       "arguments": {
        "CopyLogsOnly": false,
@@ -131,7 +133,8 @@ var configContent = {
        "FxCopAnalyzersRootDirectory": "",
        "RulesetPath": "",
        "SdlRulesetVersion": "",
-       "LoggerLevel": "Warning"
+       "LoggerLevel": "Warning",
+       "ForceSuccess": true // Pass force success flag so MSBuild exit code 1 on analyzer errors does not lead to non-graceful failure.
       },
       "outputExtension": "sarif",
       "successfulExitCodes": [
@@ -169,6 +172,11 @@ args.push('--no-policy');
 // Set logger level to only display warnings and errors
 args.push('--logger-level');
 args.push('Warning');
+
+if (!warnAsError)
+{
+    args.push('--not-break-on-detections');
+}
 
 core.info("------------------------------------------------------------------------------");
 core.info("Installing and running analyzers...");

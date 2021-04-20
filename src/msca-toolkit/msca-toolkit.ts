@@ -69,8 +69,6 @@ export class MscaAction {
             }
         }
 
-        args.push('--not-break-on-detections');
-
         if (core.isDebug()) {
             args.push('--logger-level');
             args.push('trace');
