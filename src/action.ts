@@ -169,7 +169,7 @@ args.push('--no-policy');
 
 // Set logger level to only display warnings and errors
 args.push('--logger-level');
-args.push('Warning');
+args.push('Standard');
 
 core.info("------------------------------------------------------------------------------");
 core.info("Installing and running analyzers...");
