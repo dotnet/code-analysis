@@ -80,13 +80,8 @@ analysisArgs += getAnalysisLevelArgumentFromInput('Reliability');
 analysisArgs += getAnalysisLevelArgumentFromInput('Security');
 analysisArgs += getAnalysisLevelArgumentFromInput('Usage');
 
-let buldBreakingArg = core.getInput('build-breaking');
-let warnAsError = false;
-if (action.isNullOrWhiteSpace(buldBreakingArg) || buldBreakingArg.toLowerCase() != 'false')
-{
-    warnAsError = true;
-    analysisArgs += `/warnaserror `;
-}
+let buildBreakingArg = core.getInput('build-breaking');
+let warnAsError = action.isNullOrWhiteSpace(buildBreakingArg) || buildBreakingArg.toLowerCase() != 'false';
 
 let projectsOrSolutions = '';
 projectsOrSolutions = appendToProjectsOrSolutions('solution', projectsOrSolutions);
@@ -112,13 +107,13 @@ else {
 }
 
 var configContent = {
-    "fileVersion": "1.11.0",
+    "fileVersion": "1.12.0",
     "tools": [
      {
-      "fileVersion": "1.11.0",
+      "fileVersion": "1.12.0",
       "tool": {
        "name": "RoslynAnalyzers",
-       "version": "1.11.0"
+       "version": "1.12.0"
       },
       "arguments": {
        "CopyLogsOnly": false,
@@ -133,6 +128,7 @@ var configContent = {
        "FxCopAnalyzersRootDirectory": "",
        "RulesetPath": "",
        "SdlRulesetVersion": "",
+       "TreatWarningsAsErrors": warnAsError, 
        "LoggerLevel": "Warning",
        "ForceSuccess": true // Pass force success flag so MSBuild exit code 1 on analyzer errors does not lead to non-graceful failure.
       },
