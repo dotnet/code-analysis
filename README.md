@@ -1,7 +1,7 @@
 # dotnet/code-analysis
 
 ![Code Analysis windows-latest](https://github.com/dotnet/code-analysis/workflows/.NET%20Code%20Analysis%20windows-latest/badge.svg)  
-![Code Analysis ubuntu-latest](https://github.com/dotnet/code-analysis/workflows/.NET%20Code%20Analysis%20ubuntu-latest/badge.svg)
+Code Analysis ubuntu-latest - NOT YET SUPPORTED
 
 # Overview
 
