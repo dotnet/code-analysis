@@ -1,6 +1,8 @@
 # sample-workflow-windows-latest
 # docs are in the repo
 
+# DISABLED for now - we do not support Ubuntu yet
+
 name: .NET Code Analysis windows-latest
 on:
   push:
