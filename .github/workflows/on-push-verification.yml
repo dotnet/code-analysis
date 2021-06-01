@@ -36,7 +36,7 @@ jobs:
       id: code-analysis
       with:
         project: .\sample\ClassLibrary1.sln
-        build-breaking: true
+        build-breaking: false
         all-categories: all
 
     # Upload the analysis results file
