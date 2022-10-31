@@ -75,7 +75,7 @@ The following table shows the available [AnalysisMode](https://docs.microsoft.co
 
     ```yaml
     - name: Run .NET Code Analysis
-      uses: dotnet/code-analysis@v1
+      uses: dotnet/code-analysis@main
       id: code-analysis
       with:
         solution: MySolution.sln
@@ -87,7 +87,7 @@ The following table shows the available [AnalysisMode](https://docs.microsoft.co
 
     ```yaml
     - name: Run .NET Code Analysis
-      uses: dotnet/code-analysis@v1
+      uses: dotnet/code-analysis@main
       id: code-analysis
       with:
         projects: src\MyProject1.csproj;src\MyProject2.csproj
@@ -101,7 +101,7 @@ The following table shows the available [AnalysisMode](https://docs.microsoft.co
 
     ```yaml
     - name: Run .NET Code Analysis
-      uses: dotnet/code-analysis@v1
+      uses: dotnet/code-analysis@main
       id: code-analysis
       with:
         project: src\MyProject1.csproj
@@ -132,7 +132,7 @@ steps:
 
 # Run code analysis for all projects/solutions, such that code analysis violations break the build.
 - name: Run .NET Code Analysis
-  uses: dotnet/code-analysis@v1
+  uses: dotnet/code-analysis@main
   id: code-analysis
   with:
     build-breaking: true
@@ -141,7 +141,7 @@ steps:
 **Note:** The [Microsoft Code Analysis CLI](https://aka.ms/mscadocs) is built with dotnet v3.1.201. A version greater than or equal to v3.1.201 of dotnet must be installed on the runner in order to run this action. GitHub hosted runners already have a compatible version of dotnet installed. To ensure a compatible version of dotnet is installed on a self-hosted runner, please configure the [actions/setup-dotnet](https://github.com/actions/setup-dotnet) action.
 
 ```yaml
-- uses: actions/setup-dotnet@v1
+- uses: actions/setup-dotnet@main
   with:
     dotnet-version: '3.1.x'
 ```
